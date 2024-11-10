@@ -1,0 +1,135 @@
+<?php
+    $hostname = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "phpdasar";
+
+    //Koneksi Ke Database
+    $conn=mysqli_connect("localhost","root","","phpdasar");
+
+    //Cek Koneksi
+    if($conn->connect_error){
+        die("". $conn->connect_error);
+    }
+
+    //Ambil datanya
+    $result=mysqli_query($conn,"SELECT * FROM mahasiswa");
+
+    //Cek apakah $result nya berhasil
+    if( ! $result ){
+    echo mysqli_error( $conn );}
+
+    //Ambil data (fetch) mahasiswa dari object result
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Mahasiswa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            margin: 0;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styling untuk aksi edit dan hapus */
+        .aksi a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #e7f3ff;
+        }
+
+        .aksi a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>DAFTAR MAHASISWA</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>Foto</th>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Jurusan</th>
+                <th>Email</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php $i=1; ?>
+            <?php foreach($mahasiswa as $mhs): ?>
+            <tr>
+                <td><?= $i ?></td>
+                <td><img src="../img/1.jpg" alt="img"></td>
+                <td>Audysa Rimba Jati</td>
+                <td>102207006</td>
+                <td>Teknik Informatika</td>
+                <td>audysarj@gmail.com</td>
+                <td class="aksi">
+                    <a href="#">Edit</a>
+                    <a href="#">Hapus</a>
+                </td>
+            </tr>
+            <?php $i++ ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
+</html>
