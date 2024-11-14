@@ -1,9 +1,8 @@
 <?php
-require "functions.php";
+    require "functions.php";
 
-$mahasiswa = query("SELECT * FROM mahasiswa");
-
-
+    $mahasiswa = read("SELECT * FROM mahasiswa");
+    
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +61,7 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
             border-collapse: collapse;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             background-color: white;
+            border-radius: 10px;
         }
 
         th,
@@ -75,6 +75,7 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
             background-color: #007bff;
             color: white;
             font-weight: bold;
+            text-align: center;
         }
 
         td img {
@@ -158,14 +159,14 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
             <?php foreach ($mahasiswa as $mhs): ?>
                     <tr>
                         <td><?= $i ?></td>
-                        <td><img src="../img/1.jpg" alt="Foto Mahasiswa"></td>
+                        <td><img src=<?= $mhs["gambar"];?> alt="Foto Mahasiswa"></td>
                         <td><?= $mhs["nama"]; ?></td>
                         <td><?= $mhs["nim"]; ?></td>
                         <td><?= $mhs["jurusan"]; ?></td>
                         <td><?= $mhs["email"]; ?></td>
-                        <td class="aksi">
-                            <a href="#">Edit</a>
-                            <a href="#">Hapus</a>
+                        <td>
+                            <a href="update.php?id=<?= $mhs['id']; ?>">Edit</a>
+                            <a href="hapus.php?id=<?= $mhs['id']; ?>"onclick="return confirm('Yakin mau hapus?');">Hapus</a>
                         </td>
                     </tr>
                     <?php $i++ ?>

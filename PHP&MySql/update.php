@@ -1,24 +1,30 @@
 <?php
 require "functions.php";
-    //Cek apakah submit sudah diklik
-    if( isset($_POST["submit"])){
 
+// Ambil data di URL
+$id = $_GET['id'];
 
-        //Cek apakah data berhasil ditambhkan atau tidak
-        if (insert($_POST) > 0){
-            echo "<script> 
-                    alert('Data Berhasil Ditambahkan !'); 
+// Query data mahasiswa berdasarkan ID
+$mhs = read("SELECT * FROM mahasiswa WHERE id = $id")[0];  // Pastikan mengambil data pertama
+
+// Cek apakah submit sudah diklik
+if (isset($_POST["submit"])) {
+    // Cek apakah data berhasil diperbarui
+    if (update($_POST) > 0) {
+        echo "<script> 
+                    alert('Data Berhasil Diperbarui!'); 
                     document.location.href = 'index.php';
                 </script>";
-        } else{
-            echo "<script> 
-                    alert('INSERT GAGAL!!!'); 
+    } else {
+        echo "<script> 
+                    alert('UPDATE GAGAL!!!'); 
                     document.location.href = 'index.php';
                 </script>";
+    }
+}
 
-    }
-    }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -27,7 +33,7 @@ require "functions.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Mahasiswa</title>
+    <title>Edit Data Mahasiswa</title>
     <style>
         /* Resetting default styles */
         * {
@@ -114,26 +120,26 @@ require "functions.php";
 </head>
 
 <body>
-    <h1>Tambah Data Mahasiswa</h1>
+    <h1>Edit Data Mahasiswa</h1>
 
     <form action="" method="POST">
 
         <input type="hidden" name="id" value="<?= $mhs['id']; ?>">
 
         <label for="nama">Nama</label>
-        <input type="text" name="nama" id="nama" placeholder="Masukkan nama lengkap" required>
+        <input type="text" name="nama" id="nama" value="<?= $mhs['nama']; ?>">
 
         <label for="nim">NIM</label>
-        <input type="text" name="nim" id="nim" placeholder="Masukkan NIM" required>
+        <input type="text" name="nim" id="nim" value="<?= $mhs['nim']; ?>">
 
         <label for="jurusan">Jurusan</label>
-        <input type="text" name="jurusan" id="jurusan" placeholder="Masukkan jurusan" required>
+        <input type="text" name="jurusan" id="jurusan" value="<?= $mhs['jurusan']; ?>">
 
         <label for="email">Email</label>
-        <input type="text" name="email" id="email" placeholder="Masukkan email" required>
+        <input type="text" name="email" id="email" value="<?= $mhs['email']; ?>">
 
         <label for="gambar">Foto</label>
-        <input type="text" name="gambar" id="gambar" required>
+        <input type="text" name="gambar" id="gambar" value="<?= $mhs['gambar']; ?>">
 
         <button type="submit" name="submit">Kirim</button>
     </form>
